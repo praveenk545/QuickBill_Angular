@@ -1,14 +1,249 @@
+<app-root></app-root>
 <div class="container">
-    <section id="order">
+ 
+
+
+    <!-- screen -1 -->
+    <section *ngIf="!isViewChange" class="mt-3" id="Orders">
+ 
+
+        <div *ngIf="!isTableChange" class="container bg-white shadow-lg ounded py-2">
+            <div class="row">
+                <div class="col-md-6 d-flex justify-content-start px-3 py-3"><p class="fs-6 fw-bold">Orders</p></div>
+                <div class="col-md-6 d-flex justify-content-end px-3 py-3"> <p class="fw-bold btn btn-info text-white fs-6" (click)="newOrder()" >New Order</p></div>
+              
+          
+            </div>
+           
+              
+            <table class="table table-striped">
+                <thead class="thead-dark">
+                  <tr>
+                    <th scope="col">Order Id</th>
+                    <th scope="col">Order Date</th>
+                    <th scope="col">Customer</th>
+                    <th scope="col">Order Amount</th>
+                    <th scope="col">Edit</th>
+                    <th scope="col">Delete</th>
+                    
+                    <!-- <th scope="col">Password</th>
+                    <th scope="col">Edit</th>
+                    <th scope="col">Delete</th> -->
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let v of orderValues;let i=index">
+                    <!-- <th scope="row">{{i+1}}</th> -->
+                    <td>{{v['id']}}</td>
+                    <td>{{v['date']|date }}</td>
+                    <td>{{v['name']}}</td>
+                    <td>{{v['quantity']*v['unitPrice']}}</td>
+                    
+                    <td>
+                      <button class="btn btn-warning fw-bold" (click)="edit(v,v['id'])">Edit</button>
+          
+                  </td>
+                    <td><button class="btn btn-danger fw-bold" (click)="delete(v['id'])">Delete</button></td>
+                  </tr>
+                </tbody>
+              </table>
+        </div>
+
+        <section *ngIf="isTableChange"  id="order">
+            <div class="row justify-content-center align-items-center">
+                <div class="col-md-10 px-3 bg-white rounded shadow-lg mt-3 m-3" >
+                    <div class="py-2">
+                        <h4 class="text-primary text-center">Order</h4>
+                    </div>
+                    <form class="" [formGroup]="Form" >
+        
+                        <div class="row justify-content-evenly">
+                            <div class="col-md-6 mb-2">
+                                <label class=" "> Name</label>
+                                <input type="text" placeholder="Name" class="form-control" formControlName="name" [ngClass]="{'is-invalid':(Form.controls.name.touched||isTrySubmit)&& Form.controls.name.errors}"/>
+                                <div class="invalid-feedback" *ngIf="(Form.controls.name.touched||isTrySubmit)&& Form.controls.name.errors">
+                                    <div *ngIf="Form.controls.name.errors['required']">Enter Your Name..
+                                    </div>
+                                   
+                                    </div>
+                            </div>
+        
+                            <div class="col-md-6 mb-2">
+                                <label class=" ">Item Name</label>
+                                <input type="text" placeholder="Item Name" class="form-control" formControlName="itemName" [ngClass]="{'is-invalid':(Form.controls.itemName.touched||isTrySubmit)&& Form.controls.itemName.errors}"/>
+                                <div class="invalid-feedback" *ngIf="(Form.controls.itemName.touched||isTrySubmit)&& Form.controls.itemName.errors">
+                                    <div *ngIf="Form.controls.itemName.errors['required']">Enter Item Name..
+                                    </div>
+                                   
+                                    </div>
+                            </div>
+                        </div>
+                      
+        
+        
+        
+                        <div class="row justify-content-evenly">
+                            <div class="col-md-6 mb-2">
+                                <label class=" "> Unit Price</label>
+                                <input type="text" placeholder="Unit Price" class="form-control" formControlName="unitPrice" [ngClass]="{'is-invalid':(Form.controls.unitPrice.touched||isTrySubmit)&& Form.controls.unitPrice.errors}"/>
+                                <div class="invalid-feedback" *ngIf="(Form.controls.unitPrice.touched||isTrySubmit)&& Form.controls.unitPrice.errors">
+                                    <div *ngIf="Form.controls.unitPrice.errors['required']">Enter Unit Price..
+                                    </div>
+                                   
+                                    </div>
+                            </div>
+                            <div class="col-md-6 mb-2">
+                                <label class=" ">Quantity</label>
+                                <input type="text" placeholder="quantity" class="form-control" formControlName="quantity" [ngClass]="{'is-invalid':(Form.controls.quantity.touched||isTrySubmit)&& Form.controls.quantity.errors}"/>
+                                <div class="invalid-feedback" *ngIf="(Form.controls.unitPrice.touched||isTrySubmit)&& Form.controls.quantity.errors">
+                                    <div *ngIf="Form.controls.quantity.errors['required']">Enter quantity..
+                                    </div>
+                                   
+                                    </div>
+                            </div>
+                        </div>
+        
+                        <div class="row justify-content-evenly">
+                            <div class="col-md-6">
+                                <label>Date</label>
+                                <input type="date" class="form-control" formControlName="date" [ngClass]="{'is-invalid':(Form.controls.date.touched||isTrySubmit)&& Form.controls.date.errors}"/>
+                                <div class="invalid-feedback" *ngIf="(Form.controls.date.touched||isTrySubmit)&& Form.controls.date.errors">
+                                    <div *ngIf="Form.controls.date.errors['required']">Enter Date..
+                                    </div>
+                                   
+                                    </div>
+                            </div>
+                            <div class="col-md-6"></div>
+                        </div>
+                     
+        
+                        <!-- <div class="row justify-content-center">
+                            <div class="col-md-8 mb-2">
+                                <label class=" ">Amount</label>
+                                <input type="text" class="form-control"[(ngModel)]="amount" />
+                               
+                            </div>
+                        </div> -->
+                       
+                       
+                      
+        
+                        
+                        <div class="row justify-content-center text-center">
+                            <div class="col-md-6 py-3 d-flex justify-content-evenly">
+                                <button *ngIf="!isChange" type="submit" class="btn btn-primary text-white fw-bold " (click)="submit()">Submit</button>
+                                <button *ngIf="isChange" type="submit" class="btn btn-warning text-dark  fw-bold " (click)="updateSave(currentIndex)">Save</button>
+                                <button type="button" class="btn btn-info text-white fw-bold " (click)="cancel()">Cancel</button>
+                            </div>
+                        </div>
+        
+                    </form>
+                </div>
+            
+            
+            </div>
+        </section>
+
+    </section>
+
+      <!-- screen -1 end -->
+
+
+
+
+  <!-- screen - 2 start -->
+
+<section *ngIf="isViewChange" class="mt-3" id="myorder">
+    <div class="container bg-white shadow-lg rounded py-2 ">
+    <div class="row">
+        <div class=" col-md-6 d-flex justify-content-start">
+            <p class="fw-bold mt-4">New/Edit Order</p>
+        </div>
+        <div class=" col-md-6 d-flex justify-content-end">
+            <p class="fw-bold mt-4 btn btn" id="addItem" (click)="list()">Add-Item</p>
+        </div>
+        
+    </div>
+    <!-- add items -->
+    <div class="" *ngIf="!contentChange">
+    <div class="row justify-content-between">
+        <div class="col-md-3 ms-3" *ngFor="let value of orderValues">
+            <p>Order Id :{{value['id']}}</p>
+            <p>Order Date :{{value['date']|date }}</p>
+            <p>Customer : {{value['name']}}</p>
+        </div>
+
+    </div>
+
+
+<div class="container ">
+        <table class="table table-striped">
+          <thead class="thead-dark">
+            <tr>
+              <th scope="col">Id</th>
+              <th scope="col">Item Name</th>
+              <th scope="col">Unit Price</th>
+              <th scope="col">Quantity</th>
+              <th scope="col">amount</th>
+              <th scope="col">Edit</th>
+              <th scope="col">Delete</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let v of orderValues;let i=index">
+              <!-- <th scope="row">{{i+1}}</th> -->
+              <td>{{v['id']}}</td>
+              <td>{{v['itemName']}}</td>
+              <td>{{v['unitPrice']}}</td>
+              <td>{{v['quantity']}}</td>
+              <td>{{v['quantity']*v['unitPrice']}}</td>
+              
+              <td>
+                <button class="btn btn-warning fw-bold" (click)="contentEdit(v,v['id'])">Edit</button>
+    
+            </td>
+              <td><button class="btn btn-danger fw-bold" (click)="contentDelete(v['id'])">Delete</button></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="row d-flex justify-content-evenly">
+<div class="col-md-6">
+<button class="btn btn-primary ">Save</button>
+<button class="btn btn-danger ms-2" (click)="forCancel()">Cancel</button>
+
+</div>
+<div class="col-md-6 justify-content-end">
+    <h5>Order Amount :{{getTotal}}</h5>
+</div>
+
+        </div>
+
+</div>
+</div>
+
+
+<!-- form  -->
+
+<div class="" *ngIf="contentChange">
+    <section  id="order">
+        <div class="row justify-content-between">
+            <div class="col-md-3 ms-3">
+                <p>Order Id : {{uniqueValues.id}}</p>
+                <p>Order Date : {{uniqueValues.date|date }}</p>
+                <p>Customer : {{uniqueValues.name}}</p>
+            </div>
+    
+        </div>
         <div class="row justify-content-center align-items-center">
-            <div class="col-md-5 bg-white rounded shadow-lg mt-3 m-3" >
+            <div class="col-md-10 px-3  mt-3 m-3" >
                 <div class="py-2">
-                    <h4 class="text-primary text-center">Order</h4>
+                    <!-- <h4 class="text-primary text-center">Order</h4> -->
                 </div>
                 <form class="" [formGroup]="Form" >
-
-                    <div class="row justify-content-center">
-                        <div class="col-md-8 mb-2">
+    
+                    <div class="row justify-content-evenly">
+                        <div class="col-md-6 mb-2">
                             <label class=" "> Name</label>
                             <input type="text" placeholder="Name" class="form-control" formControlName="name" [ngClass]="{'is-invalid':(Form.controls.name.touched||isTrySubmit)&& Form.controls.name.errors}"/>
                             <div class="invalid-feedback" *ngIf="(Form.controls.name.touched||isTrySubmit)&& Form.controls.name.errors">
@@ -17,10 +252,8 @@
                                
                                 </div>
                         </div>
-                    </div>
-                  
-                    <div class="row justify-content-center">
-                        <div class="col-md-8 mb-2">
+    
+                        <div class="col-md-6 mb-2">
                             <label class=" ">Item Name</label>
                             <input type="text" placeholder="Item Name" class="form-control" formControlName="itemName" [ngClass]="{'is-invalid':(Form.controls.itemName.touched||isTrySubmit)&& Form.controls.itemName.errors}"/>
                             <div class="invalid-feedback" *ngIf="(Form.controls.itemName.touched||isTrySubmit)&& Form.controls.itemName.errors">
@@ -30,10 +263,12 @@
                                 </div>
                         </div>
                     </div>
-
-
-                    <div class="row justify-content-center">
-                        <div class="col-md-8 mb-2">
+                  
+    
+    
+    
+                    <div class="row justify-content-evenly">
+                        <div class="col-md-6 mb-2">
                             <label class=" "> Unit Price</label>
                             <input type="text" placeholder="Unit Price" class="form-control" formControlName="unitPrice" [ngClass]="{'is-invalid':(Form.controls.unitPrice.touched||isTrySubmit)&& Form.controls.unitPrice.errors}"/>
                             <div class="invalid-feedback" *ngIf="(Form.controls.unitPrice.touched||isTrySubmit)&& Form.controls.unitPrice.errors">
@@ -42,10 +277,7 @@
                                
                                 </div>
                         </div>
-                    </div>
-
-                    <div class="row justify-content-center">
-                        <div class="col-md-8 mb-2">
+                        <div class="col-md-6 mb-2">
                             <label class=" ">Quantity</label>
                             <input type="text" placeholder="quantity" class="form-control" formControlName="quantity" [ngClass]="{'is-invalid':(Form.controls.quantity.touched||isTrySubmit)&& Form.controls.quantity.errors}"/>
                             <div class="invalid-feedback" *ngIf="(Form.controls.unitPrice.touched||isTrySubmit)&& Form.controls.quantity.errors">
@@ -55,7 +287,21 @@
                                 </div>
                         </div>
                     </div>
-
+    
+                    <div class="row justify-content-evenly">
+                        <div class="col-md-6">
+                            <label>Date</label>
+                            <input type="date" class="form-control" formControlName="date" [ngClass]="{'is-invalid':(Form.controls.date.touched||isTrySubmit)&& Form.controls.date.errors}"/>
+                            <div class="invalid-feedback" *ngIf="(Form.controls.date.touched||isTrySubmit)&& Form.controls.date.errors">
+                                <div *ngIf="Form.controls.date.errors['required']">Enter Date..
+                                </div>
+                               
+                                </div>
+                        </div>
+                        <div class="col-md-6"></div>
+                    </div>
+                 
+    
                     <!-- <div class="row justify-content-center">
                         <div class="col-md-8 mb-2">
                             <label class=" ">Amount</label>
@@ -66,121 +312,34 @@
                    
                    
                   
-
+    
                     
                     <div class="row justify-content-center text-center">
                         <div class="col-md-6 py-3 d-flex justify-content-evenly">
-                            <button *ngIf="!isChange" type="submit" class="btn btn-primary text-white fw-bold " (click)="submit()">Submit</button>
-                            <button *ngIf="isChange" type="submit" class="btn btn-warning text-dark  fw-bold " (click)="updateSave(currentIndex)">Save</button>
-                            <button type="button" class="btn btn-info text-white fw-bold " (click)="cancel()">cancel</button>
+                           
+                            <button type="submit" class="btn btn-warning text-dark  fw-bold " (click)="updateSaveContent(currentIndex)">Save</button>
+                            <button type="button" class="btn btn-info text-white fw-bold " (click)="cancelContent()">Cancel</button>
                         </div>
                     </div>
-
+    
                 </form>
             </div>
         
         
         </div>
     </section>
+
+
+
 </div>
 
-<section class="mt-3" id="Orders">
-    <div class="row justify-content-start">
-        <p class="ms-3 fw-bold">Orders</p>
-    </div>
-
-    <div class="container">
-        <table class="table table-striped">
-            <thead class="thead-dark">
-              <tr>
-                <th scope="col">Order Id</th>
-                <th scope="col">Order Date</th>
-                <th scope="col">Customer</th>
-                <th scope="col">Order Amount</th>
-                <th scope="col">Edit</th>
-                <th scope="col">Delete</th>
-                
-                <!-- <th scope="col">Password</th>
-                <th scope="col">Edit</th>
-                <th scope="col">Delete</th> -->
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let v of orderValues;let i=index">
-                <!-- <th scope="row">{{i+1}}</th> -->
-                <td>{{v['id']}}</td>
-                <td>{{v['createAt']|date }}</td>
-                <td>{{v['name']}}</td>
-                <td>{{v['quantity']*v['unitPrice']}}</td>
-                
-                <td>
-                  <button class="btn btn-warning fw-bold" (click)="edit(v,v['id'])">Edit</button>
-      
-              </td>
-                <td><button class="btn btn-danger fw-bold" (click)="delete(v['id'])">Delete</button></td>
-              </tr>
-            </tbody>
-          </table>
-    </div>
+<!-- form end -->
+</div>
 </section>
 
-<section id="myorder">
-    <div class="row justify-content-start mt-3">
-        <p class="ms-3 fw-bold mt-4">New/Edit Order</p>
-    </div>
-    <div class="row justify-content-start">
-        <div class="col-md-5 ms-3" *ngFor="let value of orderValues">
-            <p>Order Id :{{value['id']}}</p>
-            <p>Order Date :{{value['createAt']|date }}</p>
-            <p>Customer : {{value['name']}}</p>
-        </div>
-
-    </div>
-
-</section>
-<div class="container ">
-
-    <section id="">
-   
-        <table class="table table-striped">
-          <thead class="thead-dark">
-            <tr>
-              <th scope="col">#</th>
-              <th scope="col">item Name</th>
-              <th scope="col">Unit Price</th>
-              <th scope="col">Quantity</th>
-              <th scope="col">amount</th>
-              <th scope="col">Edit</th>
-              <th scope="col">Delete</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let v of orderValues;let i=index">
-              <th scope="row">{{i+1}}</th>
-              <td>{{v['itemName']}}</td>
-              <td>{{v['unitPrice']}}</td>
-              <td>{{v['quantity']}}</td>
-              <td>{{v['quantity']*v['unitPrice']}}</td>
-              
-              <td>
-                <button class="btn btn-warning fw-bold" (click)="edit(v,v['id'])">Edit</button>
-    
-            </td>
-              <td><button class="btn btn-danger fw-bold" (click)="delete(v['id'])">Delete</button></td>
-            </tr>
-          </tbody>
-        </table>
-
-        <div class="row d-flex justify-content-evenly">
-<div class="col-md-6">
-<button class="btn btn-primary ">Save</button>
-<button class="btn btn-danger ms-2">Cancel</button>
 
 </div>
-<div class="col-md-6 justify-content-end">
-    <h5>Order Amount :{{getTotal}}</h5>
-</div>
 
-        </div>
-  </section>
-</div>
+  <!-- screen - 2 end -->
+
+  

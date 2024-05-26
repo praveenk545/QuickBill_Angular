@@ -20,6 +20,7 @@ export class RegisterService {
     
       user.unitPrice=createRegisterDto.unitPrice;
       user.quantity=createRegisterDto.quantity;
+      user.date=createRegisterDto.date;
       // user.amount=createRegisterDto.amount;
 
       // user.amount=(<number|undefined><unknown>createRegisterDto.unitPrice) * (<number|undefined><unknown>createRegisterDto.quantity);
@@ -70,7 +71,7 @@ export class RegisterService {
     try {
       //console.log('req', req.user);
       // id = req.user.roles == 'user_value' ? req.user_value.id : id;
-      let user = await this.userRepository.query(`select  name "itemName", "unitPrice", quantity, amount  from register r      
+      let user = await this.userRepository.query(`select  name "itemName", "unitPrice", quantity,date, amount  from register r      
       where id = '${id}' and "isActive" = true`);
       if (user.length > 0) {
         let userEntity = new Register();
@@ -78,6 +79,7 @@ export class RegisterService {
         if (updateRegisterDto.name) userEntity.itemName = updateRegisterDto.itemName;
         if (updateRegisterDto.name) userEntity.quantity = updateRegisterDto.quantity;
         if (updateRegisterDto.name) userEntity.unitPrice = updateRegisterDto.unitPrice;
+        if (updateRegisterDto.date) userEntity.date = updateRegisterDto.date;
        
         let saved = await this.userRepository.update({ id: id }, userEntity);
         return { statusCode: 200, message: ['User saved'], data: saved };

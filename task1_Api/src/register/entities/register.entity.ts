@@ -29,6 +29,9 @@ export class Register {
     quantity: string;
 
     @Column({ default: null })
+    date: string;
+
+    @Column({ default: null })
     amount: string;
 
     @Column({ default: true })

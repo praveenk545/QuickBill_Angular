@@ -2,7 +2,7 @@ import { IsEmail, isNumber } from "@nestjs/class-validator";
 import { UploadedFiles,UseInterceptors } from "@nestjs/common";
 import { FilesInterceptor } from "@nestjs/platform-express";
 import { ApiProperty, ApiPropertyOptional } from "@nestjs/swagger";
-import { IsDateString, IsNotEmpty, IsNumber, IsOptional, IsString, isEmail } from "class-validator";
+import { IsDateString, IsNotEmpty, IsNumber, IsOptional, IsString, isDateString, isEmail } from "class-validator";
 import { memoryStorage } from "multer";
 import { filter } from "rxjs";
 import { Binary } from "typeorm";
@@ -21,6 +21,10 @@ export class CreateRegisterDto {
 
     @ApiProperty()
     quantity:string;
+
+    @ApiProperty()
+    @IsDateString()
+    date:string;
 
     // @ApiProperty()
     // amount:any;

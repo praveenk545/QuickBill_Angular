@@ -14,6 +14,7 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ErrorInterceptorService } from './errorHandle/error-interceptor.service';
 import { OrderComponent } from './order/order.component';
 import { DatePipe } from '@angular/common';
+import { ListComponent } from './list/list.component';
 
 
 
@@ -27,6 +28,7 @@ import { DatePipe } from '@angular/common';
   declarations: [
     AppComponent,
     OrderComponent,
+    ListComponent,
  
  
   ],

@@ -1,0 +1,101 @@
+<div class="container">
+    <section id="order">
+        <div class="row justify-content-center align-items-center">
+            <div class="col-md-10 px-3 bg-white rounded shadow-lg mt-3 m-3" >
+                <div class="py-2">
+                    <h4 class="text-primary text-center">Order</h4>
+                </div>
+                <form class="" [formGroup]="Form" >
+    
+                    <div class="row justify-content-evenly">
+                        <div class="col-md-6 mb-2">
+                            <label class=" "> Name</label>
+                            <input type="text" placeholder="Name" class="form-control" formControlName="name" [ngClass]="{'is-invalid':(Form.controls.name.touched||isTrySubmit)&& Form.controls.name.errors}"/>
+                            <div class="invalid-feedback" *ngIf="(Form.controls.name.touched||isTrySubmit)&& Form.controls.name.errors">
+                                <div *ngIf="Form.controls.name.errors['required']">Enter Your Name..
+                                </div>
+                               
+                                </div>
+                        </div>
+    
+                        <div class="col-md-6 mb-2">
+                            <label class=" ">Item Name</label>
+                            <input type="text" placeholder="Item Name" class="form-control" formControlName="itemName" [ngClass]="{'is-invalid':(Form.controls.itemName.touched||isTrySubmit)&& Form.controls.itemName.errors}"/>
+                            <div class="invalid-feedback" *ngIf="(Form.controls.itemName.touched||isTrySubmit)&& Form.controls.itemName.errors">
+                                <div *ngIf="Form.controls.itemName.errors['required']">Enter Item Name..
+                                </div>
+                               
+                                </div>
+                        </div>
+                    </div>
+                  
+    
+    
+    
+                    <div class="row justify-content-evenly">
+                        <div class="col-md-6 mb-2">
+                            <label class=" "> Unit Price</label>
+                            <input type="text" placeholder="Unit Price" class="form-control" formControlName="unitPrice" [ngClass]="{'is-invalid':(Form.controls.unitPrice.touched||isTrySubmit)&& Form.controls.unitPrice.errors}"/>
+                            <div class="invalid-feedback" *ngIf="(Form.controls.unitPrice.touched||isTrySubmit)&& Form.controls.unitPrice.errors">
+                                <div *ngIf="Form.controls.unitPrice.errors['required']">Enter Unit Price..
+                                </div>
+                               
+                                </div>
+                        </div>
+                        <div class="col-md-6 mb-2">
+                            <label class=" ">Quantity</label>
+                            <input type="text" placeholder="quantity" class="form-control" formControlName="quantity" [ngClass]="{'is-invalid':(Form.controls.quantity.touched||isTrySubmit)&& Form.controls.quantity.errors}"/>
+                            <div class="invalid-feedback" *ngIf="(Form.controls.unitPrice.touched||isTrySubmit)&& Form.controls.quantity.errors">
+                                <div *ngIf="Form.controls.quantity.errors['required']">Enter quantity..
+                                </div>
+                               
+                                </div>
+                        </div>
+                    </div>
+    
+                    <div class="row justify-content-evenly">
+                        <div class="col-md-6">
+                            <label>Date</label>
+                            <input type="date" class="form-control" formControlName="date" [ngClass]="{'is-invalid':(Form.controls.date.touched||isTrySubmit)&& Form.controls.date.errors}"/>
+                            <div class="invalid-feedback" *ngIf="(Form.controls.date.touched||isTrySubmit)&& Form.controls.date.errors">
+                                <div *ngIf="Form.controls.date.errors['required']">Enter Date..
+                                </div>
+                               
+                                </div>
+                        </div>
+                        <div class="col-md-6"></div>
+                    </div>
+                 
+    
+                    <!-- <div class="row justify-content-center">
+                        <div class="col-md-8 mb-2">
+                            <label class=" ">Amount</label>
+                            <input type="text" class="form-control"[(ngModel)]="amount" />
+                           
+                        </div>
+                    </div> -->
+                   
+                   
+                  
+    
+                    
+                    <div class="row justify-content-center text-center">
+                        <div class="col-md-8 py-3 d-flex justify-content-evenly">
+                            <button  type="submit" class="btn btn-primary text-white fw-bold " (click)="submit()">Submit</button>
+                            <!-- <button *ngIf="isChange" type="submit" class="btn btn-warning text-dark  fw-bold " (click)="updateSave(currentIndex)">Save</button> -->
+                            <button type="button" class="btn btn-info text-white fw-bold " (click)="cancel()">Clear</button>
+                       
+                        </div>
+                        <div class="  col-md-4 py-3  d-flex justify-content-end">
+                            <p class="px-3 text-center fw-bold text-primary  text-decoration-underline" role="button"  (click)="home()" >Home</p>
+                        </div>
+                    </div>
+    
+                </form>
+            </div>
+        
+        
+        </div>
+    </section>
+
+</div>
